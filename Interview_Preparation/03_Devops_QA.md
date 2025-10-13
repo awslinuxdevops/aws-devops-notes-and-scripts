@@ -1,13 +1,18 @@
 # Basic DevOps Interview Question & Answers:
 
-1. *What is DevOps?*
-   *Answer:* DevOps is a set of practices that combines software development (Dev) and IT operations (Ops). It aims to shorten the development lifecycle and provide continuous delivery with high software quality.
+1. ***What is DevOps?***
 
-2. *What are the key principles of DevOps?*
-   *Answer:* Key principles include continuous integration and continuous delivery (CI/CD), automation, collaboration, and monitoring.
+   ***Answer:*** 
+   DevOps is a set of practices that combines software development (Dev) and IT operations (Ops). It aims to shorten the development lifecycle and provide continuous delivery with high software quality.
 
-3. *What is Continuous Integration (CI)?*
-   *Answer:* Continuous Integration is a development practice where developers frequently merge their code changes into a shared repository, which triggers automated builds and tests.
+2. ***What are the key principles of DevOps?***
+
+   ***Answer:*** 
+   Key principles include continuous integration and continuous delivery (CI/CD), automation, collaboration, and monitoring.
+
+3. ***What is Continuous Integration (CI)?***
+
+   ***Answer:*** Continuous Integration is a development practice where developers frequently merge their code changes into a shared repository, which triggers automated builds and tests.
 
 4. *What is Continuous Delivery (CD)?*
    *Answer:* Continuous Delivery is the practice of automating the entire software release process, ensuring that code changes can be safely deployed to production at any time.
