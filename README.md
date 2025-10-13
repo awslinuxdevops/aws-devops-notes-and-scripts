@@ -25,53 +25,100 @@ git clone https://github.com/<your-username>/aws-devops-notes-and-scripts.git
 aws-devops-notes-and-scripts/
 │
 ├── AWS/
-│   ├── EC2.md
-│   ├── S3.md
-│   ├── VPC.md
-│   ├── RDS.md
-│   ├── EKS_ECS.md
-│   └── CloudWatch.md
+│   ├── Compute/
+│   │   ├── EC2.md
+│   │   ├── AutoScaling.md
+│   │   └── Lambda.md
+│   ├── Storage/
+│   │   ├── S3.md
+│   │   ├── EBS.md
+│   │   └── Glacier.md
+│   ├── Networking/
+│   │   ├── VPC.md
+│   │   ├── TransitGateway.md
+│   │   └── Route53.md
+│   ├── Database/
+│   │   ├── RDS.md
+│   │   ├── Aurora.md
+│   │   └── DynamoDB.md
+│   ├── Containers /
+│   │   ├── ECS.md
+│   │   └── EKS.md
+│   ├── Monitoring & Logging/
+│   │   ├── CloudWatch.md
+│   │   ├── XRay.md
+│   │   └── CloudTrail.md
+│   └── Security & IAM/
+│       ├── IAM.md
+│       ├── KMS.md
+│       └── SecurityHub.md
 │
 ├── DevOps/
-│   ├── Jenkins/
-│   │   ├── pipeline-examples/
-│   │   ├── shared-library-examples/
-│   │   └── jenkins-setup.md
-│   ├── Docker/
-│   │   ├── dockerfile-examples/
-│   │   └── docker-commands.md
-│   ├── Kubernetes/
-│   │   ├── manifests/
-│   │   ├── kubectl-commands.md
-│   │   └── real-time-scenarios.md
-│   ├── Terraform/
-│   │   ├── ec2-provision.tf
-│   │   ├── s3-backend-example.tf
-│   │   └── terraform-notes.md
-│   ├── GitHubActions/
-│   │   ├── ci-cd-pipeline.yml
-│   │   └── secrets-management.md
-│   └── Ansible/
-│       ├── playbooks/
-│       └── ansible-notes.md
-│
-├── Monitoring/
-│   ├── Prometheus/
-│   ├── Grafana/
-│   └── alertmanager-config.md
+│   ├── Git/
+│   │   ├── Branching_Strategies.md
+│   │   ├── GitOps_Principles.md
+│   │   └── Submodules.md
+│   ├── CI_CD/
+│   │   ├── Jenkins/
+│   │   │   ├── jenkins-setup.md
+│   │   │   ├── pipeline-examples/
+│   │   │   └── shared-library/
+│   │   ├── GitHubActions/
+│   │   │   ├── ci-cd-pipeline.yml
+│   │   │   └── secrets-management.md
+│   │   └── GitLabCI, CircleCI (if needed).md
+│   ├── Containerization/
+│   │   ├── Docker/
+│   │   │   ├── dockerfile-patterns.md
+│   │   │   └── docker-compose-examples/
+│   │   └── Container-Security.md
+│   ├── Orchestration/
+│   │   ├── Kubernetes/
+│   │   │   ├── architecture.md
+│   │   │   ├── real-world-manifests/
+│   │   │   └── helm-charts.md
+│   │   └── ServiceMesh.md
+│   ├── Infrastructure as Code/
+│   │   ├── Terraform/
+│   │   │   ├── modules-best-practices.md
+│   │   │   ├── real-world-modules/
+│   │   │   └── examples/
+│   │   └── CloudFormation.md
+│   ├── Configuration Management/
+│   │   ├── Ansible/
+│   │   │   ├── playbooks/
+│   │   │   └── roles-patterns.md
+│   │   └── Chef/Puppet (if relevant).md
+│   └── Monitoring & Observability/
+│       ├── Prometheus/
+│       ├── Grafana/
+│       └── Alerting_Design.md
 │
 ├── Scripts/
-│   ├── shell/
-│   │   ├── cleanup_logs.sh
+│   ├── bash/
 │   │   ├── backup_mysql.sh
+│   │   ├── cleanup_logs.sh
 │   │   └── deploy_docker.sh
 │   ├── python/
+│   │   └── aws_utils.py
 │   └── powershell/
+│
+├── Architecture_Designs/
+│   ├── HighAvailabilityPatterns.md
+│   ├── DisasterRecovery.md
+│   └── CostOptimization.md
 │
 ├── Interview_Preparation/
 │   ├── AWS_Questions.md
 │   ├── DevOps_Questions.md
-│   ├── Real_Time_Scenarios.md
-│   └── Self_Introduction.md
+│   ├── System_Design_Scenarios.md
+│   └── Leadership_Situations.md
+│
+├── Real_World_Projects/
+│   ├── project1/
+│   │   ├── architecture.md
+│   │   ├── terraform/
+│   │   └── ci-cd/
+│   └── project2/ …
 │
 └── README.md
