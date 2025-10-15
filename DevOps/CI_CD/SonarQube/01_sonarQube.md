@@ -68,20 +68,24 @@ cd sonarqube-10.5/bin/linux-x86-64
 # 3. Access the UI
 http://localhost:9000
 # Default credentials: admin / admin
+```
 
-
-B. Docker Setup
+### 🔹 B. Docker Setup
+```
 docker run -d --name sonarqube -p 9000:9000 sonarqube:lts
+```
 
-🔹 C. Install SonarScanner
+### 🔹 C. Install SonarScanner
+```
 wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.zip
 unzip sonar-scanner-cli-5.0.zip
 export PATH=$PATH:/opt/sonar-scanner/bin
+```
 
-🔹 D. Configure Project (Add to Repo Root)
+### 🔹 D. Configure Project (Add to Repo Root)
 
 File: sonar-project.properties
-
+```
 sonar.projectKey=my-springboot-app
 sonar.projectName=My Spring Boot App
 sonar.projectVersion=1.0
@@ -89,26 +93,27 @@ sonar.sources=src
 sonar.java.binaries=target
 sonar.host.url=http://localhost:9000
 sonar.login=your_generated_token
-
+```
 
 Run Analysis
-
+```
 sonar-scanner
+```
 
-🔄 Jenkins Integration (Real-Time CI/CD)
-Step-by-Step:
+## 🔄 Jenkins Integration (Real-Time CI/CD)
 
-Install Plugin → “SonarQube Scanner for Jenkins”
+**Step-by-Step:**
 
-Configure Sonar Server
+1. **Install Plugin** → “SonarQube Scanner for Jenkins”
 
-Jenkins → Manage Jenkins → Configure System → Add SonarQube Server URL and token
+2. **Configure Sonar Server**
+* Jenkins → Manage Jenkins → Configure System → Add SonarQube Server URL and token
 
-Add Scanner Tool
-
-Jenkins → Global Tool Configuration → Add “SonarQube Scanner”
+3.  **Add Scanner Tool**
+* Jenkins → Global Tool Configuration → Add “SonarQube Scanner”
 
 🧪 Jenkinsfile Example
+```
 pipeline {
   agent any
   tools { maven 'Maven 3.9.6' }
@@ -153,100 +158,106 @@ pipeline {
     }
   }
 }
+```
 
-🧩 Real-Time Project Example
+## 🧩 Real-Time Project Example
 
-Scenario:
+**Scenario:**
 You are using Jenkins for CI/CD on a Java Spring Boot microservice.
 
-Flow:
+**Flow:**
 
-Developer commits → GitHub
+1. Developer commits → GitHub
 
-Jenkins triggers pipeline
+2. Jenkins triggers pipeline
 
-SonarQube analysis checks for:
+3. SonarQube analysis checks for:
 
-Bugs
+    *    Bugs
 
-Vulnerabilities
+    *    Vulnerabilities
 
-Code smells
+    *    Code smells
 
-Coverage < 80% ❌
+    *   Coverage < 80% ❌
 
-Quality Gate fails → Build stops
+4. Quality Gate fails → Build stops
 
-After fixing issues → Re-run → ✅ Pass → Deploy to Kubernetes (EKS)
+5. After fixing issues → Re-run → ✅ Pass → Deploy to Kubernetes (EKS)
 
-🧮 Useful Commands
-Command	Description
-./sonar.sh start	Start SonarQube server
-./sonar.sh stop	Stop server
-sonar-scanner	Run static analysis
-mvn sonar:sonar	Run Maven-based analysis
-sonar.exclusions	Exclude folders from analysis
-sonar.tests	Define test folders
+## 🧮 Useful Commands
+| Command | Description |
+|---------|--------------|
+|  |  |	
+| ./sonar.sh start | Start SonarQube server | 
+| ./sonar.sh stop  |	Stop server  |
+| sonar-scanner | Run static analysis |
+| mvn sonar:sonar  |	Run Maven-based analysis |
+| sonar.exclusions |	Exclude folders from analysis |
+| sonar.tests  | Define test folders |
 
-🧱 Troubleshooting
-Issue	Root Cause	Solution
-"Server not reachable"	Wrong sonar.host.url	Fix URL or connectivity
-"Unauthorized project"	Invalid token	Regenerate SonarQube token
-"Quality gate failed"	Code issues	Fix code smells or low coverage
-"No results in UI"	Scanner misconfigured	Check sonar-project.properties
+## 🧱 Troubleshooting
+| Issue |	Root Cause	| Solution |
+|-------|---------------|----------|
+| "Server not reachable" |	Wrong sonar.host.url |	Fix URL or connectivity |
+| "Unauthorized project" |	Invalid token |	Regenerate SonarQube token |
+| "Quality gate failed" |	Code issues	| Fix code smells or low coverage |
+| "No results in UI" |	Scanner misconfigured  | Check sonar-project.properties |
 
-🔐 Key Concepts
-Term	Meaning
-Quality Gate	Pass/Fail conditions (e.g., coverage > 80%)
-Technical Debt	Estimated time to fix all issues
-Duplication	Repeated code blocks
-Rules	Static checks defined by SonarQube plugins
-Hotspot	Security-sensitive areas requiring manual review
+## 🔐 Key Concepts
+|Term |	Meaning |
+|-----|---------|
+| Quality Gate |	Pass/Fail conditions (e.g., coverage > 80%) |
+| Technical Debt |	Estimated time to fix all issues |
+| Duplication |	Repeated code blocks |
+| Rules	Static | checks defined by SonarQube plugins |
+| Hotspot |	Security-sensitive areas requiring manual review |
 
 
-🧠 Real-Time Interview Questions and Answers
-Q1. What is SonarQube and why is it used?
+## 🧠 Real-Time Interview Questions and Answers
+**Q1. What is SonarQube and why is it used?**
 
-A: SonarQube is a code quality management platform that analyzes source code to detect bugs, vulnerabilities, and code smells before deployment. It helps maintain clean, maintainable, and secure code.
+**A:** SonarQube is a code quality management platform that analyzes source code to detect bugs, vulnerabilities, and code smells before deployment. It helps maintain clean, maintainable, and secure code.
 
-Q2. What are Quality Gates?
+**Q2. What are Quality Gates?**
 
-A: A set of conditions to determine if the code meets quality standards (e.g., no blocker issues, coverage ≥ 80%). If the gate fails, the build is blocked in CI/CD.
+**A:** A set of conditions to determine if the code meets quality standards (e.g., no blocker issues, coverage ≥ 80%). If the gate fails, the build is blocked in CI/CD.
 
-Q3. What are the types of issues SonarQube detects?
+**Q3. What are the types of issues SonarQube detects?**
 
-Bugs (functional errors)
+*    Bugs (functional errors)
 
-Vulnerabilities (security risks)
+*    Vulnerabilities (security risks)
 
-Code Smells (maintainability issues)
+*    Code Smells (maintainability issues)
 
-Security Hotspots
+*    Security Hotspots
 
-Test Coverage gaps
+*    Test Coverage gaps
 
-Q4. What is the difference between Code Smell and Bug?
+**Q4. What is the difference between Code Smell and Bug?**
 Code Smell	Bug
 Maintainability issue	Functional issue
 Doesn’t break runtime	Causes incorrect behavior
 Example: long methods	Example: null pointer exception
-Q5. What’s the role of Quality Gate in CI/CD?
 
-A: It ensures that only high-quality code is deployed. If the Quality Gate fails, Jenkins stops the pipeline and alerts developers to fix issues.
+**Q5. What’s the role of Quality Gate in CI/CD?**
 
-Q6. How do you integrate SonarQube with Jenkins?
+**A:** It ensures that only high-quality code is deployed. If the Quality Gate fails, Jenkins stops the pipeline and alerts developers to fix issues.
 
-Install SonarQube plugin
+**Q6. How do you integrate SonarQube with Jenkins?**
 
-Configure server & scanner
+*    Install SonarQube plugin
 
-Add token-based credentials
+*    Configure server & scanner
 
-Use withSonarQubeEnv() and waitForQualityGate() in pipeline
+*    Add token-based credentials
 
-Q7. What is Technical Debt?
+*    Use withSonarQubeEnv() and waitForQualityGate() in pipeline
 
-A: It’s the estimated time needed to fix all identified issues in the project.
+**Q7. What is Technical Debt?**
+
+**A:** It’s the estimated time needed to fix all identified issues in the project.
 
 Q8. What’s the difference between SonarQube and SonarCloud?
 SonarQube	SonarCloud

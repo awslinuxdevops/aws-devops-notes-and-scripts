@@ -1,19 +1,21 @@
 # **Single Points:**
 
 ## AWS:
-   --
+
 *  ELB is responsible for directing traffic to the instances, while Auto scaling is responsible for adjusting the number of instances to handle that traffic.
 
 ## Git: 
 
 **Explain the difference between Git merge and Git rebase.**
+
 Git merge combines changes from different branches, while Git rebase integrates changes by moving or combining a sequence of commits.
 
 **Explain the difference between Git pull and Git fetch.**
-A: git pull fetches changes from a remote repository and merges them into the current branch, while git fetch only fetches changes but does not automatically merge them
+
+Git pull fetches changes from a remote repository and merges them into the current branch, while git fetch only fetches changes but does not automatically merge them
 
 ## Jenkins:
-   --------
+
 ### **What’s the difference between continuous integration, continuous delivery, and continuous deployment?**
 
 
@@ -29,7 +31,6 @@ It is a process that takes the output from the delivery pipeline and deploys it 
 
 
 ## Kubernetes:
-   -----------
 
 * ***Containers:*** Containers are the basic unit of code that can be deployed to a target environment, such as a cloud or on-premises server.
 
@@ -42,40 +43,61 @@ It is a process that takes the output from the delivery pipeline and deploys it 
 * ***Configmaps*** Configmaps are API objects that store non-configential data in key-value pairs. They can be used to store information such as environment variables, command-line arguments, or configuration files. 
 
 ## Control Plane Components:
-----------------------------
+
 * ***API Server***: The API server is the central component of the control plane. It exposes REST APIs for users and other components to interact with the cluster.
+
 * ***Controller Manager***: The controller manager is responsible for running the control plane components, such as the scheduler, the replicator, and the node controller.
+
 * ***Scheduler***: The scheduler is responsible for scheduling pods onto nodes in the cluster.
+
 * ***Etcd***: Etcd is a distributed key-value store that stores the cluster's state and configuration.
+
 * ***Cloud Controller Manager***: The cloud controller manager is responsible for integrating the cluster with cloud providers.
+
 * ***Cluster Autoscaler***: The cluster autoscaler is responsible for automatically scaling the cluster based on the workload.
+
 * ***Node Controller***: The node controller is responsible for managing the nodes in the cluster.
+
 * ***Replicator***: The replicator is responsible for managing the replicas of pods in the cluster.
+
 * ***Service Controller***: The service controller is responsible for managing the services in the cluster.
+
 * ***Volume Controller***: The volume controller is responsible for managing the volumes in the cluster.
+
 * ***Volume Snapshot Controller***: The volume snapshot controller is responsible for managing the snapshots of volumes in the cluster.
+
 * ***Persistent Volume Controller***: The persistent volume controller is responsible for managing the persistent volumes in the cluster.
+
 * ***Persistent Volume Claim Controller***: The persistent volume claim controller is responsible for managing the persistent volume claims in the cluster.
+
 * ***Pod Disruption Budget Controller***: The pod disruption budget controller is responsible for managing the pod disruption budgets in the cluster.
+
 * ***Horizontal Pod Autoscaler***: The horizontal pod autoscaler is responsible for automatically scaling the pods in the cluster based on the workload.
+
 * ***Job Controller***: The job controller is responsible for managing the jobs in the cluster.
+
 * ***CronJob Controller***: The cronjob controller is responsible for managing the cronjobs in the cluster.
+
 * ***DaemonSet Controller***: The daemonset controller is responsible for managing the daemonsets in the cluster.
+
 * ***Deployment Controller***: The deployment controller is responsible for managing the deployments in the cluster.
+
 * ***ReplicaSet Controller***: The replicaset controller is responsible for managing the replicasets in the cluster.
+
 * ***StatefulSet Controller***: The statefulset controller is responsible for managing the statefulsets in the cluster.
+
 * ***Replication Controller***: The replication controller is responsible for managing the replication controllers in the cluster
+
 * ***Pod Priority Controller***: The pod priority controller is responsible for managing the pod priorities.
 
 Node Components:
-----------------
+
 * ***Kubelet***: The kubelet is the agent that runs on each node and is responsible for managing the containers on that node.
+
 * ***Kube-proxy***: The kube-proxy is a network proxy that runs on each node and
 is responsible for routing traffic to the correct pods.
+
 * ***Container runtime***: The container runtime is responsible for running the containers on the node.
-
-
-
 
 
 ## **Kubernetes Deployment Strategy Types:**
@@ -118,13 +140,17 @@ The monolithic, microservices architecture and service-oriented architecture (SO
 
 
 ### ***Difference between Persistent Volume (PV) and Persistent Volume Claim (PVC)***
+
 **Persistent volume (PV):**
+
 A piece of storage in a Kubernetes cluster that's provisioned by an administrator or dynamically provisioned using Storage Classes. PVs are persistent, meaning they continue to exist even after the pods using them are destroyed. PVs can represent physical disks, file systems, or vendor-hosted storage resources. 
 
 **Persistent volume claim (PVC):**
+
 A request for storage by a user. PVCs are similar to vouchers that can be redeemed for storage access. PVCs specify which StorageClass the pod requires, and the master plane automatically finds a matching PV and binds the two. 
 
 #### Here are some other things to know about PVs and PVCs:
+
 * **StorageClass:** Administrators can define StorageClasses that indicate properties of storage devices, such as performance, service levels, and back-end policies. 
 * **Dynamic provisioning:** You can define a storage class to leverage dynamic provisioning of persistent volumes so you won't have to create them manually. 
 * **Data retention:** PVs ensure data retention regardless of a Pod's lifecycle. 

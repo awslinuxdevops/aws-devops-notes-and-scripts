@@ -1,0 +1,486 @@
+###########   AWS Interview Questions   ##########
+
+
+#Amazon EC2 (Elastic Compute Cloud):
+
+EC2 is a virtual machine hosted in the cloud. When you want a computer, you can turn it on. When you no longer want it, you can turn it off. You only pay for it while you use it.
+
+#Amazon EBS (Elastic Block Store):
+
+EBS is a virtual disk for your virtual machine, like your C: and D: drive. You can create any number of disks, each of any size.
+
+#Amazon S3 (Simple Storage Service):
+ 
+SSS stores files, making them available on the Internet if you wish. Many popular services store their data in S3, such as Dropbox. You only pay for the data you store.
+
+
+##How to copy the files from the S3 bucket to EC2:
+
+Copy files from EC2 to S3 Buckets in 4 steps:
+
+1.	Create an IAM role with S3 write access or admin access.
+2.	Map the IAM role to an EC2 instance.
+3.	Install AWS CLI in the EC2 instance.
+4.	Run the AWS S3 cp command to copy the files to the S3 bucket. 
+
+
+
+##Differentiate between on-demand instances and spot instances:
+
+Spot Instances are spare unused Elastic Compute Cloud (EC2) instances that one can bid for. Once the bid exceeds the existing spot price (which changes in real-time based on demand and supply), the spot instance will be launched. If the spot price exceeds the bid price, the instance can go away anytime and terminate within 2 minutes of notice. 
+The best way to decide on the optimal bid price for a spot instance is to check the price history of the last 90 days available on the AWS console. The advantage of spot instances is that they are cost-effective, and the drawback is that they can be terminated anytime. Spot instances are ideal to use when –
+
+There are optional nice-to-have tasks.
+
+You have flexible workloads that can run when there is enough computing capacity.
+
+Tasks that require extra computing capacity to improve performance.
+
+On-demand instances are made available whenever you require them, and you need to pay for the time you use them hourly. These instances can be released when they are no longer required and do not require any upfront commitment. The availability of these instances is guaranteed by AWS, unlike spot instances.
+
+##What is the boot time for an instance store-backed instance?
+
+Amazon Instance Store  --> 05 minutes 
+
+##Is it possible to vertically scale on an Amazon Instance?  If yes, how?
+
+Following are the steps to scale an Amazon Instance vertically –
+
+	1.	Spin up a larger Amazon instance than the existing one.
+
+	2.	Pause the existing instance to remove the root ebs volume from the server and discard.
+
+	3.	Stop the live running instance and detach its root volume.
+
+	4.	Make a note of the unique device ID and attach that root volume to the new server.
+
+	5.	Start the instance again
+
+
+## Differentiate between vertical and horizontal scaling in AWS.
+Horizontal scaling means that you scale by adding more ec2 machines into your pool of resources whereas Vertical scaling means that you scale by adding more power (CPU, RAM) to an existing ec2 machine.
+
+##  What is the total number of buckets that can be created in AWS by default?
+100 buckets can be created in each of the AWS accounts. If additional buckets are required, increase the bucket limit by submitting a service limit increase.
+
+##What are the possible connection issues you encounter when connecting to an Amazon EC2 instance?
+
+	1.	Unprotected private key file
+
+	2.	Server refused key
+
+	3.	Connection timed out
+
+	4.	No supported authentication method available
+
+	5.	Host key not found,permission denied.
+
+	6.	User key not recognized by the server, permission denied.
+
+EC2:
+----
+
+It is possible to bootstrap our instances using an EC2 User data script.
+
+Bootstrapping means launching commands when a machine starts.
+
+That scripts is only run once at the instance first start
+
+Ec2 user data is used to automate boot tasks such as:
+	
+		Installing updates
+		Installing software
+		Downloading common files from the internet
+		Anything you can think of  
+
+
+User data:
+---------
+
+#!/bin/bash
+# User this for your user data ( script from top to bottom )
+# install httpd (Linux 2 Version)
+yum update -y
+yum install -y httpd
+systemctl start httpd
+systemctl enable httpd
+echo "<h1>Hello World from $(hostname -f)</h1>"> /var/www/html/index.html
+
+
+
+EC2 Instance:
+
+Great website for ec2 instance type and cost:
+
+https://www.ec2instances.info/  
+
+
+EC2 Instances Purchasing Options:
+
+	On-Demand ec2instances	Short workload,predictable pricing, pay by second
+
+	Reserved ( 1 & 3 years )
+		Reserved Instances  long workloads
+		Convertible Reserved ec2instances	long workloads with flexible instances
+
+	Savings Plans ( 1 & 3 years )	Commitment to an amount of usage, long workload
+
+	Spot Instances 		Short workloads, cheap, can lose instances ( less reliable )
+
+	Dedicated Hosts		Book an entire physical server, control instances placement
+
+	Dedicated Instances 	No other customers will share your hardware
+
+	Capacity Reservations	Reserve capacity in a specific AZ for any duration. 
+
+
+EC2 On Demand:
+--------------
+		
+		Pay for what you use:
+			Linux or Windows 	Billing per second, after the first minute
+			All other operating systems		Biling per hour
+
+		Has the highest cost but no upfront payment
+		No long-term commitment
+
+		Recommended for short-term and un-interrupted workloads, where you can't predict how the application will have
+
+EC2 Reserved Instances:
+		
+		Up to 72% discount compared to On-demand
+
+		You reserve a specific instance attributes (Instance Type, Region, Tenancy, OS)
+		Reservation Period	01 year (+discount) or 3 years (+++discount)
+		Payment Options		No Upfront(+), Partial Upfront(++), All Upfront(+++)
+		Reserved Instance's scope	Regional or Zonal (reserve capacity in a AZ)
+		Recommended for steady-state usage applications (think database)
+		You can buy and sell in the reserved Instances Marketplace
+
+
+		Convertiable Reserved Instance:
+		------------------------------
+
+		Can change the EC2 instance type, instance family, OS, scope and tenancy
+		Up to 66% discount.
+
+EC2 Spot Instances:
+
+		Can get a discount of up 90% compared to On-demand
+
+		Instances that you can "lose" at any point of time if your max price is less than the current spot price
+
+		The MOST cost-efficient instances in AWS 
+
+		Useful for workloads that are resilient to failure
+
+			Batch jobs
+			Data Analysis
+			Image processing
+			Any distributed workloads
+			Workloads with a flexible start and end time
+
+
+		Not suitable for critical jobs or databases
+
+EC2 Dedicated Hosts:
+		
+		A physical server with EC2 instances capacity fully dedicated to your use 
+		Allows you address compliance requirements and use your existing server-bound software licences(per-socket,per-core,per VM software licenses)
+
+		Purchasing Options:
+			On-demand:	Pay per second for active Dedicated HOST
+			Reserved	1 or 3 years	(No upfront, Partial Upfront, All upfront)
+
+		The most expensive Option:
+
+		Useful for software that have complicated licensing model (BYOL	-	Bring your Own License)
+
+		Or for companies that have strong regulatory or compliance needs
+
+Dedicated Instances: 
+
+		Instances run on hardware that's dedicated to you
+
+		May share hardware with other instances in same account
+
+		No control over instance placement ( Can move hardware after Stop / Start  )
+
+
+EC2 Capacity Reservations:
+		
+		Reserve On-demand instances capacity in a specific AZ for any duration
+
+		You always have access to EC2 capacity when you need it.
+
+		NO time commitment (create/cancel anytime), no billing discounts
+
+		Combine with Regional Reserved Instances and savings plans to benefit from billing discounts
+
+		You're charged at On-Demand rate whether you run instance or not 
+
+	Suitable for short-term, uninterrupted workloads that needs to be in a specific AZ
+
+
+
+
+
+Placement Groups in AWS:
+-----------------------
+
+	Sometimes you want control over the EC2 instance placement strategy
+
+	That strategy can be defined using placement groups
+
+	When you create a placement group, you specify one of the following strategies for the group:
+
+		Cluster 	clusters instances into a low-latency group in a single Avaliability Zone
+
+		Spread 		spreads instances across underlying hardware ( max 7 instances per group per AZ)  critical applications
+
+		Partition	Spreads instances across many different partitions ( which rely on different sets of racks ) within an AZ, Scales to 100s of EC2 instances per group ( Hadoop, Cassandra, Kafka)
+
+
+
+
+
+EC2 Hibernate:
+
+		We know we can stop, terminate instances
+
+			Stop 	the data on disk (EBS) is kept intact in the next start
+
+			Terminate 	any EBS volumes (root) also set-up to be destroyed is lost
+
+		On start, the followig happens.
+
+			First start:	The OS boots & the EC2 user data script is run 
+
+			Following starts: the OS boots up
+
+			Then your application starts, caches get warmed up, and that can take time!.
+
+
+	Introducting EC2 hibernate:
+
+			The in-memory (RAM) state is preserved
+
+			The instance boot is much faster! (the OS is not stopped / restarted)
+
+			Under the hood:	The RAM state is written to a file in the root EBS volume
+
+			The root EBS volume must be encrypted
+
+
+
+		Use cases:
+
+			Long-running processing
+
+			Saving the RAM state
+
+			Services that take time to intialize
+
+
+------------------------------------------------------------------------------------------------------
+
+
+Spot Fleet is a set of Spot instances and optionally -----> On-demand Instances
+
+To ensure your EC2 instances have the highest netwoking performance while communicating with each other. 
+Which EC2 Placement group should you choose? ( cluster Placement group)
+
+Have a critical application hosted on a fleet of EC2 instances in which you want to achieve maximum availability when there's an AZ failure. which EC2 placement group should you choose?  ( Spread Placement group )
+
+Elastic Network Interface (ENI) can be attached to EC2 instances in another AZ. ------> False
+
+
+Questions:
+-----------
+
+There are a lot more differences between these services:
+
+EFS is:
+
+	Generally Available (out of preview), but may not yet be available in your region
+	Network filesystem (that means it may have bigger latency but it can be shared across several instances; even between regions)
+	It is expensive compared to EBS (~10x more) but it gives extra features.
+	It's a highly available service.
+	It's a managed service
+	You can attach the EFS storage to an EC2 Instance
+	Can be accessed by multiple EC2 instances simultaneously
+	Since 2016.dec.20 it's possible to attach your EFS storage directly to on-premise servers via Direct Connect. ()
+	
+EBS is:
+
+A block storage (so you need to format it). This means you are able to choose which type of file system you want.
+As it's a block storage, you can use Raid 1 (or 0 or 10) with multiple block storages
+It is really fast
+It is relatively cheap
+With the new announcements from Amazon, you can store up to 16TB data per storage on SSD-s.
+You can snapshot an EBS (while it's still running) for backup reasons
+But it only exists in a particular region. Although you can migrate it to another region, you cannot just access it across regions (only if you share it via the EC2; but that means you have a file server)
+You need an EC2 instance to attach it to
+New feature (2017.Feb.15): You can now increase volume size, adjust performance, or change the volume type while the volume is in use. You can continue to use your application while the change takes effect.
+S3 is:
+
+An object store (not a file system).
+You can store files and "folders" but can't have locks, permissions etc like you would with a traditional file system
+This means, by default you can't just mount S3 and use it as your webserver
+But it's perfect for storing your images and videos for your website
+Great for short term archiving (e.g. a few weeks). It's good for long term archiving too, but Glacier is more cost efficient.
+Great for storing logs
+You can access the data from every region (extra costs may apply)
+Highly Available, Redundant. Basically data loss is not possible (99.999999999% durability, 99.9 uptime SLA)
+Much cheaper than EBS.
+You can serve the content directly to the internet, you can even have a full (static) website working direct from S3, without an EC2 instance
+Glacier is:
+
+Long term archive storage
+Extremely cheap to store
+Potentially very expensive to retrieve
+Takes up to 4 hours to "read back" your data (so only store items you know you won't need to retrieve for a long time)
+--------------------------------------------------------------------------------------------------------
+
+
+What's an EBS Volume?
+
+
+	An EBS ( Elastic Block Store) Volume is a network drive your can attach to your instances while they run
+
+	It allows your instances to persisit data, even after their termination
+
+	They can only be mounted to one instance at a time ( at the CCP Level)
+
+	They are bound to a specific availability zone
+
+	Analogy: Think of them as "network USB stick"
+
+	Free tier:	30GB of freee EBS storage of type General Purppose (SSD) or Magnetick per month 
+
+EBS Volume:	
+	
+	It's a network drive (i.e, not a physical drive)
+		It uses the network to communicate the instance, which means there might be a bit of latency
+		It can be detached from an EC3 instance and attached to another on quickly
+
+	It's locked to an Availabilty Zone (AZ)
+
+		An EBS Volume in us-east-1 a cannot be attached to us-east-1b
+		To move a volume across, you first need to snapshot it
+
+	Have a provisioned capacity ( size in GBs, and IOPS)
+
+		You get billed for all the provisioned capacity
+		You can increase the capacity of the drive over time.
+
+
+
+
+EBS Volume Types:
+-----------------
+		EBS Volumes come in 6 Types:
+
+			gp2 / gp3 (Solid State Drive): General Purpose SSD volume that balances price and performance for a wide variety of workloads
+
+			io1 / io2 (Solid State Drive): Highest-performance SSD volume for mission-crtial low-latency for high-thourghput workloads
+
+			st1 (Hard Disk Drive):	Low cost HDD volume desinged for frequently accessed, throguhtput-intensive workloads. 
+
+
+EBS Volume Types Use cases:
+---------------------------
+
+	General Purpose SSD:
+
+		Cost effective storage, low-latency
+		System boot volumes, Virtual desktops, Developement and test enviroments.
+		I GiB	16 TiB
+
+		gp3:
+
+			Baseline of 3,000 IOPS and throughput of 125 MiB/s
+			Can increase IOPS up to 16,000 and throughput up to 1000 MIB/s independently
+
+		gp2:
+			Small gp2 volumes can burst IOPS to 3,000
+			Size of the volume and IOPS are linked, max IOPS is 16,000
+			3 IOPS per GB, means at 5,334 GB we are at the max IOPS
+
+	Provisioned IOPS ( PIOPS )  SSD
+	-------------------------------
+
+		Critical business applications with sustained IOPS performance
+
+		Or applications that need more than 16,000 IOPS
+
+		Great for Databases workloads ( sensitive to storage perf and consistency )
+
+		io 1 / io2 ( 4 GiB - 16 TiB )
+			Max PIOPS: 64,000 for Nitro EC2 instances & 32,000 for other 
+			Can increase PIOPS independently from storage size
+			io2 have more durability and more IOPS per GiB ( at the same price as io 1)
+
+		io2 Block Express ( 4 GiB  -- 64 TiB )
+			Sub-millisecond latency
+			Max PIOPS: 256,000 with an IOPS:GiB ratio of 1,001
+
+		Supports EBS Multi-attach
+
+	Hard Disk Drives (HDD):
+
+		Cannot be a boot volume
+		125 GiB to 16 TiB
+		Throughput Optimized HDD (st1)
+
+			Big Data, Data Warehouses, Log Processing
+			Max throughput 500 MiB/s -- max IOPS 500
+
+		Cold HDD (sc1):
+			For data that is infrequently accessed
+			Scenarios where lowest cost is important.
+
+EBS Multi-Attach -io 1 / io 2 family:
+------------------------------------
+
+		Attach the same EBS volume to multiple EC2 instances in the same AZ.
+
+		Each instance has full read & write permissions to the high-performance volume
+
+		USE case:
+		---------
+			Achieve higher applications availability in clustered 
+			Linux applications ( ex: Terradata)
+
+			Applications must manage concurrent write operations.
+
+EBS Encryption:
+---------------
+	
+		When you creat an encrypted EBS volume, you get the following: 
+			Data at rest is encrypted inside the volume.
+			All the data in flight moving between the instance and the volume is encrypted
+			All snapshots are encrypted
+			All volumes created from the snapshot.
+
+		Encryption and decryption are handled transparently ( you have nothing to do )
+
+		Encryption has a minimal impact on latency
+		EBS encryption leverages keys from KMS ( AES-256
+		)
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
