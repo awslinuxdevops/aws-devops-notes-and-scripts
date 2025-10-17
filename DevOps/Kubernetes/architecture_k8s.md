@@ -5,7 +5,8 @@
 
 A Kubernetes cluster consists of control plane nodes and worker nodes.
 
-**Control Plane**
+### **Control Plane**
+
 The control plane is responsible for container orchestration and maintaining the desired state of the cluster. It has the following components.
 
 1.  kube-apiserver
@@ -16,16 +17,17 @@ The control plane is responsible for container orchestration and maintaining the
 
 A cluster can have one or more control plane nodes.
 
-**Worker Node**
+### **Worker Node**
 
-The Worker nodes are responsible for running containerized applications. The worker Node has the following components.
+   The Worker nodes are responsible for running containerized applications. The worker Node has the following components.
 
 1.  kubelet
 2.  kube-proxy
 3.  Container runtime
 
 
-Kubernetes Control Plane Components
+#### Kubernetes Control Plane Components
+
 First, let’s take a look at each control plane component and the important concepts behind each component.
 
 1. **kube-apiserver**
@@ -40,14 +42,19 @@ The communication between the API server and other components in the cluster hap
 
 ### **Kubernetes api-server is responsible for the following.**
 
-* ***API management:*** Exposes the cluster API endpoint and handles all API requests. The API is version and itsupports multiple API versions simultaneously.
+***API management:*** Exposes the cluster API endpoint and handles all API requests. The API is version and itsupports multiple API versions simultaneously.
 Authentication (Using client certificates, bearer tokens, and HTTP Basic Authentication) and Authorization (ABAC and RBAC evaluation)
+
 Processing API requests and validating data for the API objects like pods, services, etc. (Validation and Mutation Admission controllers)
 api-server coordinates all the processes between the control plane and worker node components.
 API server also contianes an aggreagation layer which allows you to extend Kubernetes API to create custom APIs resources and controllers.
+
 The only component that the kube-apiserver initiates a connection to is the etcd component. All the other components connect to the API server.
+
 The API server also supports watching resources for changes. For example, clients can establish a watch on specific resources and receive real-time notifications when those resources are created, modified, or deleted.
+
 Each component (Kubelet, scheduler, controllers) independently watches the API server to figure out what it needs to do.
+
 api-server has a built-in apiserver proxy. It is part of the API server process. It is primarily used to enable access to ClusterIP services from outside the cluster, even though these services are typically only reachable within the cluster itself.
 
 ```
@@ -69,6 +76,7 @@ Kubernetes is a distributed system and it needs an efficient distributed databas
 etcd is an open-source strongly consistent, distributed key-value store. So what does it mean?
 
 Strongly consistent: If an update is made to a node, strong consistency will ensure it gets updated to all the other nodes in the cluster immediately. Also if you look at CAP theorem, achieving 100% availability with strong consistency and & Partition Tolerance is impossible.
+
 Distributed: etcd is designed to run on multiple nodes as a cluster without sacrificing consistency.
 Key Value Store: A nonrelational database that stores data as keys and values. It also exposes a key-value API. The datastore is built on top of BboltDB which is a fork of BoltDB.
 etcd uses raft consensus algorithm for strong consistency and availability. It works in a leader-member fashion for high availability and to withstand node failures.
@@ -89,6 +97,7 @@ etcd stores all objects under the /registry directory key in key-value format. F
 Also, etcd it is the only Statefulset component in the control plane.
 
 The number of nodes in an etcd cluster directly affects its fault tolerance. Here’s how it breaks down:
+
 ```
 3 nodes: Can tolerate 1 node failure (quorum = 2)
 5 nodes: Can tolerate 2 node failures (quorum = 3)
@@ -114,7 +123,10 @@ In a Kubernetes cluster, there will be more than one worker node. So how does th
 #### Here is how the scheduler works.
 
 To choose the best node, the Kube-scheduler uses filtering and scoring operations.
-In filtering, the scheduler finds the best-suited nodes where the pod can be scheduled. For example, if there are five worker nodes with resource availability to run the pod, it selects all five nodes. If there are no nodes, then the pod is unschedulable and moved to the scheduling queue. If It is a large cluster, let’s say 100 worker nodes, and the scheduler doesn’t iterate over all the nodes. There is a scheduler configuration parameter called percentageOfNodesToScore. The default value is typically 50%. So it tries to iterate over 50% of nodes in a round-robin fashion. If the worker nodes are spread across multiple zones, then the scheduler iterates over nodes in different zones. For very large clusters the default percentageOfNodesToScore is 5%.
+In filtering, the scheduler finds the best-suited nodes where the pod can be scheduled. For example, if there are five worker nodes with resource availability to run the pod, it selects all five nodes. If there are no nodes, then the pod is unschedulable and moved to the scheduling queue.
+
+If It is a large cluster, let’s say 100 worker nodes, and the scheduler doesn’t iterate over all the nodes. There is a scheduler configuration parameter called percentageOfNodesToScore. The default value is typically 50%. So it tries to iterate over 50% of nodes in a round-robin fashion. If the worker nodes are spread across multiple zones, then the scheduler iterates over nodes in different zones. For very large clusters the default percentageOfNodesToScore is 5%.
+
 In the scoring phase, the scheduler ranks the nodes by assigning a score to the filtered worker nodes. The scheduler makes the scoring by calling multiple scheduling plugins. Finally, the worker node with the highest rank will be selected for scheduling the pod. If all the nodes have the same rank, a node will be selected at random.
 Once the node is selected, the scheduler creates a binding event in the API server. Meaning an event to bind a pod and node.
 
@@ -147,7 +159,6 @@ Deploying Kubernetes Service of type Load balancer. Here Kubernetes provisions a
 Provisioning storage volumes (PV) for pods backed by cloud storage solutions.
 
 ## Kubernetes Native Objects:
-   --------------------------
 
 Till now we have learned about the core kubernetes components and how each component works.
 
