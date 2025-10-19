@@ -124,22 +124,24 @@ resource "aws_instance" "web" {
 ```
 
 ## 🧰 9. Terraform Commands
-Command	Description
-terraform init	Initialize working directory
-terraform validate	Validate syntax
-terraform fmt	Format .tf files
-terraform plan	Preview execution plan
-terraform apply	Apply configuration
-terraform destroy	Destroy infrastructure
-terraform state list	List tracked resources
-terraform taint	Mark resource for recreation
-terraform untaint	Remove taint mark
-terraform output	Show output values
-terraform import	Import existing infra
-terraform workspace	Manage environments
+| Command	 | Description |
+|-----------|------------|
+| terraform init	| Initialize working directory |
+| terraform validate |	Validate syntax |
+| terraform fmt	 | Format .tf files |
+| terraform plan	| Preview execution plan |
+| terraform apply	| Apply configuration |
+| terraform destroy	 | Destroy infrastructure |
+| terraform state list	| List tracked resources |
+| terraform taint	 | Mark resource for recreation |
+| terraform untaint	| Remove taint mark |
+| terraform output	| Show output values |
+| terraform import	| Import existing infra |
+| terraform workspace	 | Manage environments |
 
 ## 🔁 10. Count & For_each
-count
+
+**count**
 
 ```
 resource "aws_instance" "web" {
@@ -147,7 +149,8 @@ resource "aws_instance" "web" {
   ami   = var.ami_id
   instance_type = "t2.micro"
 }
-for_each
+
+**for_each**
 
 
 resource "aws_s3_bucket" "b" {
@@ -162,9 +165,10 @@ instance_type = var.env == "prod" ? "t3.medium" : "t2.micro"
 ```
 
 ## 🗃️ 12. State Management
-Local state file: terraform.tfstate
 
-Remote Backend Example:
+##### Local state file: terraform.tfstate
+
+**Remote Backend Example:**
 
 ```
 terraform {
@@ -195,7 +199,7 @@ resource "aws_instance" "web" {
 ```
 
 ## 🧩 14. Modules
-Folder Structure
+**Folder Structure**
 
 ```
 modules/
@@ -212,7 +216,7 @@ module "vpc" {
 ```
 
 ## 🧭 15. Workspaces
-Manage multiple environments:
+**Manage multiple environments:**
 
 ```
 terraform workspace new dev
@@ -223,42 +227,48 @@ Each workspace maintains its own state file.
 
 
 ## 🧠 16. Terraform Functions
-Function	Description
-length(list)	Returns length of a list
-join(",", list)	Joins list with delimiter
-file("file.txt")	Reads file content
-lookup(map, key, default)	Fetch map value
-upper(), lower()	Case conversion
-format()	String formatting
 
-🔐 17. Security Best Practices
+| Function	| Description |
+|-----------|-------------|
+| length(list)	| Returns length of a list |
+| join(",", list)	| Joins list with delimiter |
+| file("file.txt")	| Reads file content |
+| lookup(map, key, default)	| Fetch map value |
+| upper(), lower()	| Case conversion |
+| format()	| String formatting |
+
+## 🔐 17. Security Best Practices
 ✅ Never hardcode credentials
 ✅ Use IAM Roles or environment variables
 ✅ Store state in S3 + lock in DynamoDB
 ✅ Ignore .tfstate files in .gitignore
 ✅ Encrypt state using KMS
 
-🧑‍💻 18. Real-Time Scenarios
-Scenario 1: Some EC2 instances failed to create
-Run terraform plan to debug
+## 🧑‍💻 18. Real-Time Scenarios
 
-Check dependencies (depends_on)
+##### Scenario 1: Some EC2 instances failed to create
 
-Use terraform taint for recreation
+* Run terraform plan to debug
 
-Verify IAM permissions
+* Check dependencies (depends_on)
 
-Scenario 2: Partial infra deployed
-Use terraform apply -target=resource.name
+* Use terraform taint for recreation
 
-Fix and re-run terraform apply
+* Verify IAM permissions
 
-Scenario 3: Update tags for 100 EC2 instances
-Use for_each or count
+##### Scenario 2: Partial infra deployed
 
-Always terraform plan before apply
+* Use terraform apply -target=resource.name
 
-🧑‍🏫 19. Common Interview Questions
+* Fix and re-run terraform apply
+
+##### Scenario 3: Update tags for 100 EC2 instances
+* Use for_each or count
+
+* Always terraform plan before apply
+
+## 🧑‍🏫 19. Common Interview Questions
+
 Question	Answer
 What is Terraform?	IaC tool to automate infra provisioning
 Terraform vs CloudFormation?	Terraform = multi-cloud, CloudFormation = AWS-only
@@ -271,11 +281,10 @@ What are provisioners?	Execute post-creation scripts
 How to manage remote backend?	Store state in S3, lock with DynamoDB
 Plan vs Apply?	Plan = Preview, Apply = Execute
 
-🧱 20. Terraform in CI/CD (GitHub Actions Example)
-.github/workflows/terraform.yml
+## 🧱 20. Terraform in CI/CD (GitHub Actions Example)
+**.github/workflows/terraform.yml**
 
-yaml
-Copy code
+```
 name: Terraform CI/CD
 
 on:
@@ -304,3 +313,5 @@ jobs:
 
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan
+```
+

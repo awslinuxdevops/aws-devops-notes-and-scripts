@@ -1,0 +1,15 @@
+
+// Run this pipeline only on the agent that has the label 'docker-noe' //
+
+pipeline {
+  agent { label 'docker-node' }
+
+  stages {
+    stage('Build') {
+      steps {
+        echo "Running on Docker node..."
+        sh 'docker build -t myapp:latest .'
+      }
+    }
+  }
+}

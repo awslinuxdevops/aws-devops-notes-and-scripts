@@ -1,5 +1,3 @@
-# aws-devops-notes-and-scripts
-
 # AWS & DevOps Notes, Scripts, and Real-Time Scenarios
 
 Welcome! 👋  
@@ -18,7 +16,7 @@ Scripts are tested in real environments (AWS EC2, EKS, etc.)
 
 ## 🧠 How to Use
 Clone this repo:
-```bash
+```
 git clone https://github.com/<your-username>/aws-devops-notes-and-scripts.git
 
 
