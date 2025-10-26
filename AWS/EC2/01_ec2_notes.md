@@ -1,3 +1,244 @@
+# Amazon EC2 (Elastic Compute Cloud) - AWS Reference Guide
+
+### Table of Contents
+
+1. Overview
+
+2. Amazon EC2 Components
+
+*	EC2
+
+*	EBS
+
+*	S3
+
+3. Copying Files Between S3 and EC2
+
+4. EC2 Instance Types and Purchasing Options
+
+5. Instance Scaling
+
+* Vertical vs Horizontal Scaling
+
+6. EC2 Boot & User Data
+
+7. Placement Groups
+
+8. EC2 Hibernate
+
+9. Spot Fleet
+
+10. EBS Volumes & Types
+
+11. EBS Encryption & Multi-Attach
+
+12. Common EC2 Connection Issues
+
+13. References
+
+### Overview
+
+Amazon EC2 provides resizable virtual machines in the cloud.
+
+- Launch instances when needed and terminate when not used.
+
+- Pay only for the compute time you consume.
+
+
+| Type                      | Use Case                   | Pricing & Features                              |
+| ------------------------- | -------------------------- | ----------------------------------------------- |
+| **On-Demand**             | Short workloads            | Pay per second/hour, no upfront, highest cost   |
+| **Reserved**              | Long-term steady workloads | 1 or 3 years, up to 72% discount                |
+| **Convertible Reserved**  | Flexible long workloads    | Change instance family/type, up to 66% discount |
+| **Spot**                  | Flexible workloads         | Up to 90% cheaper, can terminate anytime        |
+| **Dedicated Hosts**       | Compliance, licensing      | Full physical server reservation                |
+| **Dedicated Instances**   | Security compliance        | Dedicated hardware, no placement control        |
+| **Capacity Reservations** | Specific AZ workloads      | Guarantee capacity, pay on-demand rate          |
+
+
+Amazon EC2 Components
+Amazon EC2
+
+Virtual machine hosted in AWS cloud.
+
+On-demand, scalable, and flexible.
+
+Amazon EBS
+
+Elastic Block Store is a virtual disk attached to EC2 instances.
+
+Persistent storage: survives instance stop/restart.
+
+Supports snapshots and resizing.
+
+Amazon S3
+
+Simple Storage Service is object storage for files.
+
+Accessible globally.
+
+Pay only for storage consumed.
+
+Supports static website hosting and backups.
+
+Copying Files Between S3 and EC2
+
+Steps to Copy Files from EC2 to S3:
+
+Create an IAM role with S3 write or admin access.
+
+Attach the IAM role to the EC2 instance.
+
+Install AWS CLI on the EC2 instance.
+
+Run the following command:
+
+aws s3 cp <local-file> s3://<bucket-name>/
+
+EC2 Instance Types and Purchasing Options
+Type	Use Case	Pricing & Features
+On-Demand	Short workloads	Pay per second/hour, no upfront, highest cost
+Reserved	Long-term steady workloads	1 or 3 years, up to 72% discount
+Convertible Reserved	Flexible long workloads	Change instance family/type, up to 66% discount
+Spot	Flexible workloads	Up to 90% cheaper, can terminate anytime
+Dedicated Hosts	Compliance, licensing	Full physical server reservation
+Dedicated Instances	Security compliance	Dedicated hardware, no placement control
+Capacity Reservations	Specific AZ workloads	Guarantee capacity, pay on-demand rate
+
+EC2 Website for Instance Types & Costs:
+https://www.ec2instances.info/
+
+Instance Scaling
+Vertical Scaling
+
+Increase CPU, RAM of existing instance.
+
+Steps:
+
+Launch a larger instance.
+
+Stop old instance, detach root EBS.
+
+Attach root volume to new instance.
+
+Start instance.
+
+Horizontal Scaling
+
+Add more EC2 instances to the pool.
+
+Increases application redundancy.
+
+Difference:
+
+Vertical = “scale up”
+
+Horizontal = “scale out”
+
+EC2 Boot & User Data
+
+EC2 instances can be bootstrapped using User Data scripts.
+
+Runs only once at instance launch.
+
+Example:
+
+#!/bin/bash
+yum update -y
+yum install -y httpd
+systemctl start httpd
+systemctl enable httpd
+echo "<h1>Hello World from $(hostname -f)</h1>" > /var/www/html/index.html
+
+Placement Groups
+Type	Description	Use Case
+Cluster	Instances in single AZ, low latency	High network performance
+Spread	Instances spread across hardware	High availability, critical apps
+Partition	Spread across partitions	Large-scale workloads, e.g., Hadoop, Kafka
+
+Tip: ENI cannot be attached across different AZs.
+
+EC2 Hibernate
+
+Saves in-memory (RAM) state to root EBS volume.
+
+Boot is faster than stop/start.
+
+Requires encrypted root volume.
+
+Use cases:
+
+Long-running processes
+
+Services that take time to initialize
+
+Spot Fleet
+
+Mix of Spot and optionally On-Demand instances.
+
+Best for cost-efficient, flexible workloads.
+
+EBS Volumes & Types
+Overview
+
+Block storage attached to EC2.
+
+Persistent after instance termination.
+
+Locked to a single AZ.
+
+Free Tier: 30GB per month (SSD or Magnetic).
+
+Volume Types
+Type	Storage	Use Case
+gp2/gp3	SSD	General purpose, boot volumes, dev/test
+io1/io2	SSD	High IOPS, mission-critical workloads
+st1	HDD	Throughput-intensive, big data
+sc1	HDD	Infrequent access, cost-sensitive
+
+Multi-Attach: io1/io2 volumes can attach to multiple EC2 instances in the same AZ.
+
+EBS Encryption
+
+Data at rest and in transit encrypted automatically.
+
+Snapshots are encrypted.
+
+Uses AWS KMS (AES-256).
+
+Minimal impact on latency.
+
+Common EC2 Connection Issues
+
+Unprotected private key file
+
+Server refused key
+
+Connection timed out
+
+No supported authentication method
+
+Host key not found, permission denied
+
+User key not recognized
+
+References
+
+AWS EC2 Official Docs
+
+AWS EBS Documentation
+
+AWS S3 Documentation
+
+EC2 Instances Info
+
+
+
+
+
+
+
+
 ###########   AWS Interview Questions   ##########
 
 

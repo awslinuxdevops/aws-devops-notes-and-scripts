@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-USERNAME="labsquire"  # Change this as needed: yoda, labsquire, or dlw-labsquire
+USERNAME="example"  # Change this as needed: yoda, example, or dlw-example
 
 echo "Creating user: $USERNAME"
 useradd -m -s /bin/bash "$USERNAME"

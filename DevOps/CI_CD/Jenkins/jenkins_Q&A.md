@@ -3,7 +3,8 @@
 ### Continuous Integration (CI):
 
 1. **What is Continuous Integration, and why is it essential in software development?**
-A: Continuous Integration is the practice of regularly integrating code changes into a shared repository, followed by automated builds and tests. It ensures that changes do not break existing functionality and helps identify and fix issues early in the development process.
+
+Continuous Integration is the practice of regularly integrating code changes into a shared repository, followed by automated builds and tests. It ensures that changes do not break existing functionality and helps identify and fix issues early in the development process.
 
 2. **Explain the concept of a CI/CD pipeline.**
 A: A CI/CD pipeline is a set of automated processes that facilitate the continuous integration and delivery of software. It typically includes stages like code compilation, testing, artifact generation, and deployment.

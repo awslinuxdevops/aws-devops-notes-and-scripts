@@ -47,9 +47,9 @@
       name: nginx
       state: present
 ```
+### Verify apache2 is installed or not if not installed, install it. 
 
-========================================================
-
+```
 ---
 - name: Install and configure
   hosts: webserver
@@ -70,4 +70,4 @@
       name: apache2
       state: started
       enabled: yes
-============================================================
+```

@@ -1,5 +1,5 @@
-Ansible Playbooks
-~~~~~~~~~~~~~~~~~
+# Ansible Playbooks
+
 As ad-hoc commands are to bash commands, playbooks are to bash scripts. Playbooks run using 'ansible-playbook' command and not the ansible command. Playbooks are written in YAML. It contain different elements called plays. Plays contain list of host and at minimum one task. 
 
 You can use default host inventory or you can create a new inventory file.

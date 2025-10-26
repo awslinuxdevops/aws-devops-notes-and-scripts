@@ -21,7 +21,7 @@ Developer (Git Push)
 
 ```
 
-**Example Jenkinsfile (Declarative Pipeline)
+**Example Jenkinsfile (Declarative Pipeline)**
 ```
 pipeline {
   agent any
@@ -64,7 +64,7 @@ pipeline {
 }
 ```
 
-| Component                       | Description                                                                                   |
+| **Component**                       | **Description**                                                                                   |
 | ------------------------------- | --------------------------------------------------------------------------------------------- |
 | **Jenkins Master / Controller** | Main Jenkins server that manages jobs, schedules builds, monitors agents, and provides UI.    |
 | **Jenkins Agent / Node**        | Executes the actual build, test, or deployment steps.                                         |
@@ -74,8 +74,7 @@ pipeline {
 
 **What is agent any in Jenkins Pipeline, and how do you use nodes?**
 
-- In Jenkins declarative pipelines, the agent directive tells Jenkins where the pipeline or stage should run.
-When we specify agent any, Jenkins will execute the pipeline on any available agent or node.
+- In Jenkins declarative pipelines, the agent directive tells Jenkins where the pipeline or stage should run. When we specify agent any, Jenkins will execute the pipeline on any available agent or node.
 If I want to target a specific agent, I use a label like agent `{ label 'docker-node' }.`
 
 - In older scripted pipelines, we use `node('label-name') { ... }` blocks to define where the job should run.
@@ -87,11 +86,11 @@ If I want to target a specific agent, I use a label like agent `{ label 'docker-
 - Each .groovy file inside /vars becomes a callable method in Jenkins pipelines.
 This helps us maintain clean and modular pipelines by keeping common logic (like build, test, deploy, and notification steps) reusable across multiple Jenkinsfiles.
 
-- For example, I keep functions like buildApp.groovy or deployToAWS.groovy inside /vars, and call them directly in pipelines using buildApp() or deployToAWS().
+- For example, I keep functions like buildApp.groovy or `deployToAWS.groovy` inside /vars, and call them directly in pipelines using buildApp() or deployToAWS().
 
 **Points to Remember:**
 
-| Point                        | Description                                                   |
+| **Point**                        | **Description**                                                   |
 | ---------------------------- | ------------------------------------------------------------- |
 | 🔹 `/vars` folder            | For global Groovy scripts (each file = one callable function) |
 | 🔹 File name = Function name | `vars/deployApp.groovy` → usable as `deployApp()`             |
@@ -143,6 +142,6 @@ pipeline {
     }
 }
 
-// 👉 Now, buildApp() is coming from the /vars/buildApp.groovy file in your Git repo.
+//  Now, buildApp() is coming from the /vars/buildApp.groovy file in your Git repo.
 
 ```

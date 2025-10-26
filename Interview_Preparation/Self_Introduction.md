@@ -16,6 +16,6 @@ On the *DevOps side,* I have strong hands-on experience with:
 
 *Version Control & Collaboration:* Git and GitHub for branching strategies and automation.
 
-In terms of *projects,* I have contributed to multiple enterprise applications such as *MrYoda, LabSquire, MicroGen, DLW, and Pharmacy Reports.* In these projects, I have been responsible for *setting up AWS cloud environments, implementing CI/CD pipelines, automating provisioning with Terraform and Ansible, and containerizing applications with Docker & Kubernetes.*
+In terms of *projects,* I have contributed to multiple enterprise applications such as *MrYoda, example, MicroGen, DLW, and Pharmacy Reports.* In these projects, I have been responsible for *setting up AWS cloud environments, implementing CI/CD pipelines, automating provisioning with Terraform and Ansible, and containerizing applications with Docker & Kubernetes.*
 
 My key strengths include *automation, scalability, and reliability,* and I always focus on improving delivery speed while ensuring system stability and security. I am now looking for a role where I can bring my *end-to-end DevOps expertise,* mentor teams, and help organizations build *resilient cloud-native solutions."*
