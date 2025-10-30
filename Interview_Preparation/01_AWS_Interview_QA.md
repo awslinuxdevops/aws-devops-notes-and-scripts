@@ -35,3 +35,6 @@ In other words, Docker provides the container runtime, and ECS tells where and h
 | **Responsibility** | You use Docker to build and run individual containers.                      | ECS schedules and scales those containers across clusters.                                     |
 | **Analogy**        | Docker = Building a container                                               | ECS = Managing and running many containers efficiently                                         |
 | **Example**        | `docker run nginx`                                                          | ECS defines **task definitions** for NGINX and deploys to multiple nodes (EC2 or Fargate).     |
+
+
+
